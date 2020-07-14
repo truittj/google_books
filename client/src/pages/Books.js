@@ -18,7 +18,6 @@ function Books() {
     loadBooks()
   }, [])
 
-  // Loads all books and sets them to books
   function loadBooks() {
     API.getBooks()
       .then(res => 
@@ -44,13 +43,12 @@ function Books() {
   // Then reload books from the database
   function handleFormSubmit(event) {
     event.preventDefault();
-    alert("clicked")
-    console.log(formObject.title)
+    //console.log(formObject.title)
     if (formObject.title) {
       API.getGoogleBooks(
    formObject.title)
         .then(res =>{ 
-          console.log(res.data.items)
+          //console.log(res.data.items)
           setBooks(res.data.items)})
         .catch(err => console.log(err));
     }
@@ -85,13 +83,26 @@ function Books() {
             {books.length ? (
               <List>
                 {books.map(book => (
-                  <ListItem key={book.id}>
-                    <Link to={"/books/" + book._id}>
+                  <ListItem 
+                  key={book.id}
+                  title={book.volumeInfo.title}
+                  authors={book.volumeInfo.authors}
+                  link={book.volumeInfo.infoLink}
+                  description={book.volumeInfo.description}
+                  image={book.volumeInfo.imageLinks}
+                  >
+                    
+                    <Link to={"/books/" + book.id}>
                       <strong>
-                        {book.title} by {book.author}
+                        {book.id} by {console.log(book)}
+
+                        {/* Error: Objects are not valid as a React child (found: object with keys {title, subtitle, authors, publisher, 
+                        publishedDate, description, industryIdentifiers, readingModes, pageCount, printType, categories, averageRating, 
+                        ratingsCount, maturityRating, allowAnonLogging, contentVersion, panelizationSummary, imageLinks, language, previewLink, infoLink, 
+                          canonicalVolumeLink}). If you meant to render a collection of children, use an array instead. */}
                       </strong>
                     </Link>
-                    <DeleteBtn onClick={() => deleteBook(book._id)} />
+                    <DeleteBtn onClick={() => deleteBook(book.id)} />
                   </ListItem>
                 ))}
               </List>
