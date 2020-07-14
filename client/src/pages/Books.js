@@ -83,24 +83,16 @@ function Books() {
             {books.length ? (
               <List>
                 {books.map(book => (
-                  <ListItem 
-                  key={book.id}
-                  title={book.volumeInfo.title}
-                  authors={book.volumeInfo.authors}
-                  link={book.volumeInfo.infoLink}
-                  description={book.volumeInfo.description}
-                  image={book.volumeInfo.imageLinks}
-                  >
-                    
+                  <ListItem key={book.id}>
                     <Link to={"/books/" + book.id}>
-                      <strong>
-                        {book.id} by {console.log(book)}
+                      <div>
+                      {book.id}
+                      <h3>Title: {book.title} </h3>
+                      <img src={book.image} alt={book.title} />
+                       <p> Description: {book.description}</p>
+                        <p>Publish Date: {book.date}</p>
 
-                        {/* Error: Objects are not valid as a React child (found: object with keys {title, subtitle, authors, publisher, 
-                        publishedDate, description, industryIdentifiers, readingModes, pageCount, printType, categories, averageRating, 
-                        ratingsCount, maturityRating, allowAnonLogging, contentVersion, panelizationSummary, imageLinks, language, previewLink, infoLink, 
-                          canonicalVolumeLink}). If you meant to render a collection of children, use an array instead. */}
-                      </strong>
+                      </div>
                     </Link>
                     <DeleteBtn onClick={() => deleteBook(book.id)} />
                   </ListItem>
