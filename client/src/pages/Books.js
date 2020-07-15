@@ -43,12 +43,11 @@ function Books() {
   // Then reload books from the database
   function handleFormSubmit(event) {
     event.preventDefault();
-    //console.log(formObject.title)
     if (formObject.title) {
       API.getGoogleBooks(
    formObject.title)
         .then(res =>{ 
-          //console.log(res.data.items)
+          console.log(res.data.items)
           setBooks(res.data.items)})
         .catch(err => console.log(err));
     }
@@ -82,20 +81,18 @@ function Books() {
             </Jumbotron>
             {books.length ? (
               <List>
+                {/* When inputed as props and passed to the ListItem the API call should render out books from the API call */}
                 {books.map(book => (
                   <ListItem key={book.id}>
-                    <Link to={"/books/" + book.id}>
                       <div>
                       {book.id}
                       <h3>Title: {book.title} </h3>
                       <img src={book.image} alt={book.title} />
-                       <p> Description: {book.description}</p>
-                        <p>Publish Date: {book.date}</p>
-
+                      <p>Author/s: {book.authors}</p>
+                      <p>Description: {book.description}</p>
+                      <p>Publish Date: {book.date}</p>
                       </div>
-                    </Link>
-                    <DeleteBtn onClick={() => deleteBook(book.id)} />
-                  </ListItem>
+                      </ListItem>
                 ))}
               </List>
             ) : (
